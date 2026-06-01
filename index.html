@@ -3,196 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brotien Cafe</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
---cream:#F8F3EC;--white:#FFFDF8;--espresso:#3A2518;--cocoa:#6B442D;
---caramel:#D8A06A;--gold:#E8BF84;--sage:#A8B89A;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,sans-serif;background:var(--cream);color:var(--espresso)}
-header{background:var(--espresso);color:#fff;padding:40px 20px;text-align:center}
-h1,h2,h3{font-family:"Playfair Display",serif}
-.hero-btn,.add-btn,.checkout-btn,.qty-btn{
-border:none;border-radius:14px;cursor:pointer
-}
-.hero-btn{background:var(--caramel);padding:14px 22px;margin:8px;font-weight:600}
-.section{padding:20px;max-width:1100px;margin:auto}
-.hidden{display:none}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-.card{background:var(--white);border-radius:18px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:.2s}
-.card:hover{transform:translateY(-4px)}
-.img{height:180px;background:linear-gradient(135deg,var(--sage),var(--caramel));display:flex;align-items:center;justify-content:center;font-size:60px}
-.info{padding:15px}
-.tag{display:inline-block;background:#eef3ea;padding:4px 8px;border-radius:20px;font-size:12px;margin:2px}
-.price{font-weight:700}
-.add-btn{background:var(--espresso);color:#fff;padding:10px 14px}
-.sticky{position:fixed;bottom:0;left:0;right:0;background:var(--espresso);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:20px}
-.modal-content{background:#fff;max-width:500px;width:100%;border-radius:20px;padding:20px}
-.close{float:right;cursor:pointer}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:12px;border:1px solid #ccc}
-.qty-row{display:flex;justify-content:space-between;margin:8px 0}
-.qty-btn{padding:6px 12px;background:var(--caramel)}
-</style>
+
+<title>BROTien Cafe | Fuel Your Mood</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<header>
-<h1>Brotien Cafe</h1>
-<p>Healthy Choices. Happy Cravings.</p>
+<header class="hero">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content">
+
+<span class="tag">Healthy • Fresh • Delicious</span>
+
+<h1>BROTIEN CAFE</h1>
+
+<h2>Fuel Your Mood</h2>
+
+<p>
+Wholesome meals, comforting favorites, and protein-packed goodness.
+</p>
+
+<div class="hero-buttons">
+<button class="btn primary" onclick="scrollToMenu()">Dine-In</button>
+<button class="btn secondary" onclick="scrollToMenu()">Order Online</button>
+</div>
+
+</div>
+
 </header>
 
-<section class="section" id="step1">
-<h2>How would you like to order?</h2>
-<button class="hero-btn" onclick="chooseOrder('Dine In')">🍽 Dine In</button>
-<button class="hero-btn" onclick="chooseOrder('Delivery')">🛵 Online Delivery</button>
+<section class="category-section">
+<h2>Healthy Choices</h2>
+
+<div class="food-grid" id="healthyMenu"></div>
 </section>
 
-<section class="section hidden" id="step2">
-<h2>Choose Your Journey</h2>
-<button class="hero-btn" onclick="loadMenu('healthy')">🥗 Fuel Your Body</button>
-<button class="hero-btn" onclick="loadMenu('indulgent')">🍰 Feed Your Soul</button>
+<section class="category-section">
+<h2>Comfort Cravings</h2>
+
+<div class="food-grid" id="comfortMenu"></div>
 </section>
 
-<section class="section hidden" id="menuSection">
-<h2 id="menuTitle">Menu</h2>
-<div class="grid" id="menuGrid"></div>
-</section>
+<!-- Floating Cart -->
 
-<section class="section">
-<h2>Your Order</h2>
-<div id="cart"></div>
-<h3 id="total">Total: ₹0</h3>
-
-<input id="custName" placeholder="Your Name">
-<input id="custPhone" placeholder="Mobile Number">
-<textarea id="custAddress" placeholder="Delivery Address"></textarea>
-
-<button class="checkout-btn hero-btn" onclick="checkout()">Send Order To WhatsApp</button>
-</section>
-
-<div class="sticky">
-<div id="cartSummary">🛒 0 Items</div>
-<div id="cartTotal">₹0</div>
+<div class="floating-cart" id="floatingCart" onclick="openCheckout()">
+🛒 <span id="cartCount">0</span>
 </div>
 
-<div class="modal" id="modal">
+<!-- Nutrition Modal -->
+
+<div class="modal" id="nutritionModal">
+
 <div class="modal-content">
-<span class="close" onclick="closeModal()">✖</span>
-<h2 id="mName"></h2>
-<p><b>Calories:</b> <span id="mCal"></span></p>
-<p><b>Protein:</b> <span id="mProtein"></span></p>
-<p><b>Ingredients:</b></p>
-<ul id="mIng"></ul>
+
+<span class="close" onclick="closeNutrition()">&times;</span>
+
+<h2 id="nutritionTitle"></h2>
+
+<div id="nutritionBody"></div>
+
 </div>
+
 </div>
 
-<script>
-let orderType="";
-let cart={};
+<!-- Checkout Modal -->
 
-const menu={
-healthy:[
-{name:"Protein Cheesecake",emoji:"🍰",price:180,cal:280,protein:"22g",ingredients:["Greek Yogurt","Whey","Honey"],tags:["💪 High Protein"]},
-{name:"Ragi Brownie",emoji:"🍫",price:120,cal:210,protein:"10g",ingredients:["Ragi","Cocoa"],tags:["🚫 No Added Sugar"]},
-{name:"Protein Cold Coffee",emoji:"☕",price:140,cal:190,protein:"18g",ingredients:["Coffee","Milk"],tags:["💪 High Protein"]}
-],
-indulgent:[
-{name:"Paneer Volcano Burger",emoji:"🍔",price:220,cal:650,protein:"20g",ingredients:["Paneer","Cheese"],tags:["🔥 Bestseller"]},
-{name:"Chocolate Lava Cake",emoji:"🍮",price:180,cal:540,protein:"6g",ingredients:["Chocolate"],tags:["🍫 Dessert"]},
-{name:"Farmhouse Pizza",emoji:"🍕",price:280,cal:720,protein:"15g",ingredients:["Cheese","Veggies"],tags:["❤️ Crowd Favorite"]}
-]
-};
+<div class="modal" id="checkoutModal">
 
-function chooseOrder(type){
-orderType=type;
-document.getElementById("step1").classList.add("hidden");
-document.getElementById("step2").classList.remove("hidden");
-}
+<div class="modal-content checkout">
 
-function loadMenu(cat){
-document.getElementById("menuSection").classList.remove("hidden");
-document.getElementById("menuTitle").innerText=cat==="healthy"?"🥗 Fuel Your Body":"🍰 Feed Your Soul";
-let g=document.getElementById("menuGrid");
-g.innerHTML="";
-menu[cat].forEach(item=>{
-g.innerHTML+=`<div class="card">
-<div class="img">${item.emoji}</div>
-<div class="info">
-<h3>${item.name}</h3>
-${item.tags.map(t=>`<span class="tag">${t}</span>`).join("")}
-<p>${item.cal} kcal • ${item.protein}</p>
-<p class="price">₹${item.price}</p>
-<button class="add-btn" onclick='showItem(${JSON.stringify(item)})'>Details</button>
-<button class="add-btn" onclick="addToCart('${item.name}',${item.price})">Add</button>
-</div></div>`;
-});
-}
+<span class="close" onclick="closeCheckout()">&times;</span>
 
-function showItem(item){
-document.getElementById("mName").innerText=item.name;
-document.getElementById("mCal").innerText=item.cal;
-document.getElementById("mProtein").innerText=item.protein;
-document.getElementById("mIng").innerHTML=item.ingredients.map(i=>"<li>"+i+"</li>").join("");
-document.getElementById("modal").style.display="flex";
-}
-function closeModal(){document.getElementById("modal").style.display="none";}
+<h2>Your Order</h2>
 
-function addToCart(name,price){
-if(!cart[name]) cart[name]={qty:0,price:price};
-cart[name].qty++;
-renderCart();
-}
+<div id="cartItems"></div>
 
-function changeQty(name,delta){
-cart[name].qty+=delta;
-if(cart[name].qty<=0) delete cart[name];
-renderCart();
-}
+<div class="total">
+Total: ₹<span id="totalPrice">0</span>
+</div>
 
-function renderCart(){
-let html="",total=0,count=0;
-for(let n in cart){
-let item=cart[n];
-html+=`<div class="qty-row">${n}
-<div>
-<button class="qty-btn" onclick="changeQty('${n}',-1)">-</button>
-${item.qty}
-<button class="qty-btn" onclick="changeQty('${n}',1)">+</button>
-</div></div>`;
-total+=item.qty*item.price;
-count+=item.qty;
-}
-document.getElementById("cart").innerHTML=html||"No items selected";
-document.getElementById("total").innerText="Total: ₹"+total;
-document.getElementById("cartSummary").innerText="🛒 "+count+" Items";
-document.getElementById("cartTotal").innerText="₹"+total;
-}
+<form id="checkoutForm">
 
-function orderId(){
-let d=new Date();
-return "BRO-"+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+"-"+Math.floor(Math.random()*900+100);
-}
+<input
+type="text"
+id="customerName"
+placeholder="Your Name"
+required
+>
 
-function checkout(){
-let name=document.getElementById("custName").value.trim();
-let phone=document.getElementById("custPhone").value.trim();
-if(!name||!phone){alert("Name and Phone are required");return;}
-let total=0;
-let msg="*BROTIEN CAFE*%0A%0A";
-msg+="Order ID: "+orderId()+"%0A";
-msg+="Name: "+name+"%0A";
-msg+="Phone: "+phone+"%0A";
-msg+="Order Type: "+orderType+"%0A%0AItems:%0A";
-for(let n in cart){
-msg+=n+" x "+cart[n].qty+"%0A";
-total+=cart[n].qty*cart[n].price;
-}
-msg+="%0ATotal: ₹"+total;
-window.open("https://wa.me/919133458116?text="+msg,"_blank");
-}
-</script>
+<input
+type="tel"
+id="customerPhone"
+placeholder="Phone Number"
+required
+>
+
+<select id="orderType">
+<option value="Dine-In">Dine-In</option>
+<option value="Delivery">Online Delivery</option>
+</select>
+
+<textarea
+id="customerAddress"
+placeholder="Delivery Address"
+></textarea>
+
+<button type="submit" class="btn primary full">
+Proceed to WhatsApp
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="app.js"></script>
+
 </body>
 </html>
