@@ -1,0 +1,98 @@
+<section id="welcome-screen">
+
+    <h1>Brotien Cafe</h1>
+
+    <p>Eat Better. Live Stronger.</p>
+
+    <div class="choice-buttons">
+
+        <button onclick="selectMode('dinein')">
+            🍽 Dine In
+        </button>
+
+        <button onclick="selectMode('delivery')">
+            🛵 Online Delivery
+        </button>
+
+    </div>
+
+</section>
+<section id="category-screen" class="hidden">
+
+    <h2>Choose Your Journey</h2>
+
+    <button onclick="loadMenu('healthy')">
+        🥗 Fuel Your Body
+    </button>
+
+    <button onclick="loadMenu('indulgent')">
+        🍰 Feed Your Soul
+    </button>
+
+</section>
+<section id="menu-screen" class="hidden">
+
+    <div id="menu-grid"></div>
+
+</section>
+<div id="dishModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <h2 id="dishName"></h2>
+
+        <div class="nutrition">
+
+            <div>
+                <strong id="dishCalories"></strong>
+                <span>Calories</span>
+            </div>
+
+            <div>
+                <strong id="dishProtein"></strong>
+                <span>Protein</span>
+            </div>
+
+            <div>
+                <strong id="dishCarbs"></strong>
+                <span>Carbs</span>
+            </div>
+
+            <div>
+                <strong id="dishFat"></strong>
+                <span>Fat</span>
+            </div>
+
+        </div>
+
+        <ul id="ingredientList"></ul>
+
+        <button onclick="addToCart()">
+            Add To Cart
+        </button>
+
+    </div>
+
+</div>
+<section id="checkout">
+
+    <input
+        type="text"
+        id="customerName"
+        placeholder="Your Name"
+        required
+    >
+
+    <input
+        type="tel"
+        id="customerPhone"
+        placeholder="Mobile Number"
+        required
+    >
+
+    <textarea
+        id="address"
+        placeholder="Address (Delivery only)"
+    ></textarea>
+
+</section>
